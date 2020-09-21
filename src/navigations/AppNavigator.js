@@ -38,7 +38,6 @@ import ManageTeamsScreen from '../screens/PlayerMode/Screens/ManageTeams';
 import RegisterTeamScreen from '../screens/PlayerMode/Screens/RegisterTeam';
 import ConfirmTeamRegisterationScreen from '../screens/PlayerMode/Screens/ConfirmTeamRegisteration';
 import RegistrationPaymentScreen from '../screens/PlayerMode/Screens/RegistrationPayment';
-import FileViewerScreen from '../screens/PlayerMode/Screens/FileViewer';
 import PlayersListScreen from '../screens/PlayerMode/Screens/PlayersList';
 import InvitePlayersScreen from '../screens/PlayerMode/Screens/InvitePlayers';
 import RoundScheduleScreen from '../screens/PlayerMode/Screens/RoundSchedule';
@@ -1037,12 +1036,6 @@ class NavigationDrawerStructure extends Component {
     },
     RegisterTeam:{
       screen:RegisterTeamScreen,
-      navigationOptions:({ navigation }) =>{
-        return headerWithTitlePlayer(navigation)
-      }
-    },
-    ViewFile:{
-      screen:FileViewerScreen,
       navigationOptions:({ navigation }) =>{
         return headerWithTitlePlayer(navigation)
       }

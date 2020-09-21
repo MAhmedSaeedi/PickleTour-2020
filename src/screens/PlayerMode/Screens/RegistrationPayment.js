@@ -6,6 +6,7 @@ import { StackActions } from 'react-navigation';
 import axios from 'axios';
 import Toast from 'react-native-tiny-toast'
 import notifications from '../../../helpers/handleNotifications';
+import { LiteCreditCardInput } from "react-native-input-credit-card";
 
 var stripe = require('stripe-client')('pk_test_1EY0R4cujCqr0aL02h9d9zhX000XbA0n0b')
 
@@ -19,6 +20,7 @@ class RegistrationPaymentScreen extends Component {
     super(props);
     this.data=''
     this.tourData=''
+    this.formData=''
     this.players=''
     this.cardText='Card Number'
     this.state = {
@@ -38,12 +40,14 @@ class RegistrationPaymentScreen extends Component {
       cardText:true,
       error:'',
       invoiceNumber:'',
-      showCard:false
+      showCard:false,
+      form:null
     };
   }
   componentDidMount(){
     const data = this.props.navigation.getParam('data')
     this.data=data
+    this.formData=''
     const tourData = this.props.navigation.getParam('tourData')
     this.tourData = tourData
     const invoice = this.generateNumber()
@@ -88,16 +92,22 @@ class RegistrationPaymentScreen extends Component {
     return [day, month, year].join('-');
   }
   createPayment(){
-    const { cp1, cp2, cp3, cp4, cyear, cmonth, ccvc } = this.state
+    const { form } = this.state
     this.setState({initialize:true})
+    let expiry = (this.state.form.expiry)
+    let month = expiry.slice(0,2)
+    
+    let year = expiry.slice(3,5)
+    
     const Obj ={
       card:{
-        number:cp1.toString()+cp2.toString()+cp3.toString()+cp4.toString(),
-        exp_month: cmonth.toString(),
-        exp_year: cyear.toString(),
-        cvc: ccvc.toString()
+        number:form.number,
+        exp_month: month,
+        exp_year: year,
+        cvc: form.cvc
       }
     }
+    
     this.onPayment(Obj)
   }
   async onPayment(information) {
@@ -279,6 +289,12 @@ class RegistrationPaymentScreen extends Component {
     let res2 = res1.replace(" ","%20")
     let url = res2.replace("'","%27")
     this.setState({completed:false, initialize:false, showError:false},()=>this.props.navigation.navigate(team?'ConfirmTRegister':'InvitePlayers',{url}))
+  }
+
+  onChange(form){
+    this.formData=form.values
+    this.setState({form:form.values},()=>console.log(this.state.form))
+    
   }
 
   async getUserId(tournamentName, message){
@@ -476,122 +492,10 @@ class RegistrationPaymentScreen extends Component {
 
             <View style={{ alignItems:'center', paddingBottom:10, paddingTop:10}}>
              <View style={styles.cardStyle}>
-              <Icon type="FontAwesome" name="credit-card"  style={{ marginRight:8,marginLeft:8,fontSize:Responsive.font(20) ,color: '#585858'}}/>
-      
-              <TouchableOpacity onPress={()=>this.setState({showCard:true},()=>this.refs['first'].focus())} style={{ width:this.state.showCard?0:'100%', height:this.state.showCard?0:undefined}} ><Text style={styles.cardText}>{this.cardText}</Text></TouchableOpacity>
-             <TextInput
-                style={styles.textInputStyle,{height:this.state.showCard?undefined:0, width:this.state.showCard?undefined:0}}
-                placeholder='4242'
-                ref='first'
-                placeholderTextColor='transparent'
-                maxLength={4}
-                onFocus={()=>this.cardText=''} 
-              // onTouchStart={()=>this.cardText=''}
-               // onKeyPress={()=>this.cardText=''}
-                //onAccessibilityTap={()=>this.cardText=''}
-                keyboardType='numeric'
-                onChangeText={(val)=>{
-                  if(val.length==4){
-                    this.refs['second'].focus()
-                    this.setState({cp1:val})
-                  }
-                }}                
-              />
-              <TextInput
-                style={styles.textInputStyle,{height:this.state.showCard?undefined:0, width:this.state.showCard?undefined:0}}
-                placeholder='4242'    
-                placeholderTextColor='transparent'
-                ref='second'
-                maxLength={4}
-                keyboardType='numeric'
-                onChangeText={(val)=>{
-                  if(val.length==4){
-                    this.refs['third'].focus()
-                    this.setState({cp2:val})
-                  }
-                }}      
-
-              />
-              <TextInput
-                style={styles.textInputStyle,{height:this.state.showCard?undefined:0, width:this.state.showCard?undefined:0}}
-                placeholder='4242'
-                placeholderTextColor='transparent'
-                maxLength={4}
-                ref='third'
-                keyboardType='numeric'
-                onChangeText={(val)=>{
-                  if(val.length==4){
-                    this.refs['fourth'].focus()
-                    this.setState({cp3:val})
-                  }
-                }}                      
-              />
-              <TextInput
-                style={styles.textInputStyle,{height:this.state.showCard?undefined:0, width:this.state.showCard?undefined:0}}
-                placeholder='4242'   
-                placeholderTextColor='transparent'
-                maxLength={4}
-                ref='fourth'
-                keyboardType='numeric'
-                onChangeText={(val)=>{
-                  if(val.length==4){
-                    this.refs['month'].focus()
-                    this.setState({cp4:val})
-                  }
-                }}                   
-              />
-
-              <TextInput
-                style={styles.textInputStyle,{height:this.state.showCard?undefined:0, width:this.state.showCard?undefined:0}}
-                placeholder='MM'  
-                placeholderTextColor={'#b0b0b0'}
-                ref='month'
-                maxLength={2}
-                keyboardType='numeric'
-                onChangeText={(val)=>{
-                  if(val.length==2){
-                    this.refs['year'].focus()
-                    this.setState({cmonth:val})
-                  }
-                }}     
-              
-              />
-              <Text style={{fontFamily:'lato-Medium', fontSize:Responsive.font(13), width:this.state.showCard?undefined:0, height:this.state.showCard?undefined:0}}>/</Text>
-              <TextInput
-                style={styles.textInputStyle,{height:this.state.showCard?undefined:0, width:this.state.showCard?undefined:0}}
-                placeholder='YY'      
-                ref='year' 
-                maxLength={2}
-                keyboardType='numeric'
-                placeholderTextColor={'#b0b0b0'}
-                onChangeText={(val)=>{
-                  if(val.length==2){
-                    this.refs['cvc'].focus()
-                    this.setState({cyear:val})
-                  }
-                }}     
-              />
-
-              <TextInput
-                style={styles.textInputStyle,{height:this.state.showCard?undefined:0, width:this.state.showCard?undefined:0}}
-                placeholder='CVC'
-                placeholderTextColor={'#b0b0b0'}
-                ref='cvc'
-                maxLength={3}
-                keyboardType='numeric'
-                onChangeText={(val)=>{this.setState({ccvc:val})
-                }}
-                
-              />
+              <LiteCreditCardInput 
+                placeholders={{number:"4242 4242 4242 4242"}}
+                onChange={(form)=>this.setState({form:form.values})}/>
              </View>
-              {/* <PaymentCardTextField
-                ref={(ref)=>{
-                  this.paymentCardInput = ref
-                }}
-                style={styles.field}
-                disabled={false}
-              
-              /> */}
             </View>
 
             <View style={{flexDirection:'row', justifyContent:'flex-end', alignItems:'center'}}>

@@ -3,7 +3,7 @@ import { Alert, ActivityIndicator, View, Text, StyleSheet, FlatList, AsyncStorag
 import { Container, Header, Content, Icon, Accordion,  } from "native-base";
 import Responsive from 'react-native-lightweight-responsive';
 import axios from 'axios';
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
+// import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import PlayerCards from '../Cards/PlayerCards';
 import ScheduleCard from '../Cards/ScheduleCard';
 import MapView,{ Marker, PROVIDER_GOOGLE} from 'react-native-maps'
@@ -137,48 +137,48 @@ class PlayerEventDetailsScreenTwo extends Component {
   async createPdf(){
     let name = this.tournamentOldData.tournamentName.replace("/"," ")
     if(this.grantStatus=='granted' && this.state.scheduleNotAvailable==false){
-        console.log('dasd424324')
-      let options ={
-          html:`<!DOCTYPE html>
-          <html>
+    //     console.log('dasd424324')
+    //   let options ={
+    //       html:`<!DOCTYPE html>
+    //       <html>
           
-          <head>
-              <meta charset="utf-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-              <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-              <link rel="stylesheet" href="assets/css/styles.css">
-          </head>
+    //       <head>
+    //           <meta charset="utf-8">
+    //           <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    //           <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    //           <link rel="stylesheet" href="assets/css/styles.css">
+    //       </head>
           
-          <body>
-              <h3>${this.tournamentOldData.tournamentName}</h3>
-              <h3>${this.tournamentOldData.divisionName}</h3>
-              <div class="table-responsive">
-                  <table class="table" style="margin-left:auto;margin-right:auto;"  width="100%">
-                      <thead style="font-weight: bold; border-bottom-width: 2px;
-                      border-bottom-style: solid;
-                      border-bottom-color: rgb(222, 226, 230);">
-                          <tr>
-                          <th style="text-align:left">Match No.</th>
-                          <th style="text-align:left">Player/s</th>
-                          <th style="text-align:left">Opponent/s</th>
-                          <th style="text-align:left">Start Time</th>
-                          <th style="text-align:left">Start Date</th>
-                          <th style="text-align:left">Court No.</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                         ${this.tableData}
-                      </tbody>
-                  </table>
-              </div>
-          </body>
+    //       <body>
+    //           <h3>${this.tournamentOldData.tournamentName}</h3>
+    //           <h3>${this.tournamentOldData.divisionName}</h3>
+    //           <div class="table-responsive">
+    //               <table class="table" style="margin-left:auto;margin-right:auto;"  width="100%">
+    //                   <thead style="font-weight: bold; border-bottom-width: 2px;
+    //                   border-bottom-style: solid;
+    //                   border-bottom-color: rgb(222, 226, 230);">
+    //                       <tr>
+    //                       <th style="text-align:left">Match No.</th>
+    //                       <th style="text-align:left">Player/s</th>
+    //                       <th style="text-align:left">Opponent/s</th>
+    //                       <th style="text-align:left">Start Time</th>
+    //                       <th style="text-align:left">Start Date</th>
+    //                       <th style="text-align:left">Court No.</th>
+    //                       </tr>
+    //                   </thead>
+    //                   <tbody>
+    //                      ${this.tableData}
+    //                   </tbody>
+    //               </table>
+    //           </div>
+    //       </body>
           
-          </html>`,
-          fileName:`${name}_${this.tournamentOldData.divisionName}`,
-          directory: 'Documents',
-        }
-      let file = await RNHTMLtoPDF.convert(options)
-      this.showingAlert(file.filePath)
+    //       </html>`,
+    //       fileName:`${name}_${this.tournamentOldData.divisionName}`,
+    //       directory: 'Documents',
+    //     }
+    //   let file = await RNHTMLtoPDF.convert(options)
+    //   this.showingAlert(file.filePath)
     }
     else{
         if(this.state.scheduleNotAvailable==true){

@@ -1,0 +1,48 @@
+{
+    "project_info": {
+      "project_number": "750410452325",
+      "firebase_url": "https://pickletour-291622.firebaseio.com",
+      "project_id": "pickletour-291622",
+      "storage_bucket": "pickletour-291622.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:750410452325:android:a0fc046f1ee9b4d107e58c",
+          "android_client_info": {
+            "package_name": "com.deepcloudai.pickletour"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "750410452325-fdpt4fsmv2062br17s31s6i0hloi9mtl.apps.googleusercontent.com",
+            "client_type": 1,
+            "android_info": {
+              "package_name": "com.deepcloudai.pickletour",
+              "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+            }
+          },
+          {
+            "client_id": "750410452325-biihpc3k04ufjl6s5j95g4ri9okh6mpp.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyBws2b5Fpl31_tZp8efrt9obEzr32pqjFQ"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "750410452325-biihpc3k04ufjl6s5j95g4ri9okh6mpp.apps.googleusercontent.com",
+                "client_type": 3
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }

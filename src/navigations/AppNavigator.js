@@ -49,6 +49,10 @@ import FindRecreationalScreenRef from '../screens/RefereeMode/FindRecreationalRe
 import NotificationsScreen from '../screens/NotificationsScreen';
 import RefNotificationScreen from '../screens/RefereeMode/RefNotificationScreen';
 import ProfileScreen from '../screens/PlayerMode/Screens/Profile';
+import TestLogin from '../screens/TestLogin';
+import NewLogin from '../screens/NewLogin';
+import NewSignUp from '../screens/NewSignUp';
+import NewSignUpTest from '../screens/NewSignUpTest';
 
 
 
@@ -1082,13 +1086,13 @@ class NavigationDrawerStructure extends Component {
 
   const AuthStack = createStackNavigator({
     LoginScreen:{
-        screen:Login,
+        screen:NewLogin,
         navigationOptions:{
             header:null
         }
     },
     SignUpScreen:{
-        screen:SignUp,
+        screen:NewSignUpTest,
         navigationOptions:{
             header:null
         }

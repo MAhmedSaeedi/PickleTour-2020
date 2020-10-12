@@ -6,7 +6,7 @@ import {firebaseConfig} from './src/configurations/config';
 import { MenuProvider } from 'react-native-popup-menu'
 import OneSignal from 'react-native-onesignal';
 import { Provider } from 'react-redux'
-import store from './src/store'
+import { store } from './src/store/slices/index'
 import Orientation from 'react-native-orientation-locker';
 
 
